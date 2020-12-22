@@ -1,0 +1,11 @@
+.header{
+    background-color: #e9ecef;
+    padding: 1em;
+    text-align: center;
+}
+
+#helpButton {
+    position: fixed;
+    top: 1em;
+    left: 1em;
+}

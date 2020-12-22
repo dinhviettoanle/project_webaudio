@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/style.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <title>Loop Station</title>
+</head>
+
+<body>
+    <div class="header">
+		<h1>Loop Station</h1>
+		<button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal" id="helpButton">
+			Help
+		</button>	  
+	</div>
+
+
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="exampleModalLabel">Help Loop Station</h5>
+			  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+			<div class="modal-body">
+			  ...
+			</div>
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		  </div>
+		</div>
+	  </div>
+
+	<button type="button" id="button-resume" class="btn btn-warning btn-block">AudioContext OFF</button>
+
+	<div class="container my-3 ">
+		<div class="row border p-3 mt-2" style="background-color:honeydew;">
+			<div class="col-2 align-self-center">
+				<b>Track 1</b>
+			</div>
+			<div class="col-2 align-self-center">
+				<em>Microphone</em>
+			</div>
+			<div class="col-3 align-self-center">
+				<button type="button" id="button-record1" class="btn btn-outline-danger btn-block">Record</button>
+			</div>
+		</div>
+
+		<div class="row border p-3 mt-2" style="background-color: honeydew;">
+			<div class="col-2 align-self-center">
+				<b>Drums</b>
+			</div>
+			<div class="col-2 align-self-center">
+				<em>MIDI Keyboard</em>
+			</div>
+			<div class="col-3 align-self-center">
+				<button type="button" id="button-record_drums" class="btn btn-outline-danger btn-block">Record</button>
+			</div>
+		</div>
+		
+	</div>
+
+	<button type="button" id="button-end_rec" class="btn btn-outline-danger btn-block">End recording</button>
+
+	<script src="./javascript/drums.js"></script>
+	<script src="./javascript/gui.js"></script>
+	<script src="./javascript/record.js"></script>
+	<script src="./javascript/script.js"></script>
+</body>
+
+</html>
