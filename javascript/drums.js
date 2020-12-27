@@ -1,3 +1,8 @@
+/**
+ * SOUND FOR DRUMS
+ */
+
+
 
 // 3. Midi callback is called if Midi is accessible
 function onMIDIInit (midi) {
@@ -38,10 +43,6 @@ function midiMessageEventHandler (event) {
                 noteOn(event.data[1], event.data[2]);
             }
             break;
-        // note off if necessary
-        // case 128:
-        //     noteOff(event.data[1]);
-        //     break;
         case 176:
             continuousController(event.data[1], event.data[2]);
             break;
@@ -58,8 +59,8 @@ function continuousController (ctrlNumber, value) {
 
 // 4. play sound when note on
 function noteOn (noteNumber, velocity) {
-    console.log('note on', noteNumber, velocity);
-    const Cbase = 36;
+    // console.log('note on', noteNumber, velocity);
+    const Cbase = 36; // MIDI Note as the root C
 
     switch (noteNumber) {
         case Cbase:
@@ -86,6 +87,13 @@ function noteOn (noteNumber, velocity) {
         case Cbase+13:
             playSound(bufferLoader.bufferList[7]); // Crash
             break;
+    }
+
+    if (is_recording_drums) {
+        drums_track.push({
+            "time" : context.currentTime - time_start_drums,
+            "note" : noteNumber
+        });
     }
 }
 
@@ -162,3 +170,53 @@ class BufferLoader {
     };
   
 }
+
+
+/* ==================== RECORDING ====================== */
+
+const gui_record_drums = document.querySelector('#button-record_drums');
+const gui_play_drums = document.querySelector('#button-play_drums');
+
+
+let drums_track = [];
+let time_start_drums = 0;
+let is_recording_drums = false;
+
+
+
+gui_record_drums.addEventListener('click', function() {
+    time_start_drums = context.currentTime;
+    console.log("Recording drums...");
+    drums_track = [];
+    is_recording_drums = true;
+});
+
+// TODO : bug si on enregistre 2 fois
+
+gui_play_drums.addEventListener('click', function(){
+    if (is_recording_drums) {
+        console.log("Finish the recording !");
+        return;
+    }
+
+    if (drums_track.length <= 1){
+        console.log("You may record something...");
+        return;
+    }
+
+    gui_play_drums.className = "btn btn-info btn-block";
+    time_play = context.currentTime;
+
+    drums_track.forEach(element => {
+        time_sample = element.time;
+        let is_waiting = true;
+            while(is_waiting){ // Time precision is not very accurate, but whatever...
+                if (context.currentTime - time_play >= time_sample){
+                    is_waiting = false;
+                }
+            }    
+        noteOn(element.note);
+    });
+
+    gui_play_drums.className = "btn btn-outline-info btn-block";
+});

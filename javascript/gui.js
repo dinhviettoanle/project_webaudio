@@ -23,6 +23,15 @@ end_record.addEventListener('click', function(){
 
     record1.className = "btn btn-outline-danger btn-block";
     record_drums.className = "btn btn-outline-danger btn-block";
+
+    is_recording_drums = false;
+    drums_track.push({
+        "time" : context.currentTime,
+        "note" : 0
+    }); // so that the end of the recording is when the button is pushed
+
+
+    console.log("All recordings have been ended !");
 });
 
 
