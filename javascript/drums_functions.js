@@ -2,28 +2,28 @@ function note_on_drums(noteNumber) {
     const Cbase = 36; // MIDI Note as the root C
     switch (noteNumber) {
         case Cbase:
-            playSound(bufferLoader.bufferList[0]); // Kick
+            playSound(bufferLoaderDrums.bufferList[0]); // Kick
             break;
         case Cbase+4:
-            playSound(bufferLoader.bufferList[1]); // Snare
+            playSound(bufferLoaderDrums.bufferList[1]); // Snare
             break;
         case Cbase+7:
-            playSound(bufferLoader.bufferList[2]); // Tom 1
+            playSound(bufferLoaderDrums.bufferList[2]); // Tom 1
             break;
         case Cbase+8:
-            playSound(bufferLoader.bufferList[3]); // Hihat Close
+            playSound(bufferLoaderDrums.bufferList[3]); // Hihat Close
             break;
         case Cbase+9:
-            playSound(bufferLoader.bufferList[4]); // Tom 2
+            playSound(bufferLoaderDrums.bufferList[4]); // Tom 2
             break;
         case Cbase+10:
-            playSound(bufferLoader.bufferList[5]); // Hihat Open
+            playSound(bufferLoaderDrums.bufferList[5]); // Hihat Open
             break;
         case Cbase+11:
-            playSound(bufferLoader.bufferList[6]); // Tom 3
+            playSound(bufferLoaderDrums.bufferList[6]); // Tom 3
             break;
         case Cbase+13:
-            playSound(bufferLoader.bufferList[7]); // Crash
+            playSound(bufferLoaderDrums.bufferList[7]); // Crash
             break;
     }
 }

@@ -67,9 +67,14 @@ function continuousController (ctrlNumber, value) {
 // 4. play sound when note on
 function noteOn (noteNumber, velocity) {
     // console.log('note on', noteNumber, velocity);
-    if (which_selected == 10) { 
-        note_on_drums(noteNumber);
-    }
+    switch (which_selected) {
+        case 1 :
+            note_on_synthesizer(noteNumber);
+            break;
+        case 10 :
+            note_on_drums(noteNumber);
+            break;
+    }   
 
     if (is_recording_drums) {
         drums_track.push({
@@ -81,10 +86,6 @@ function noteOn (noteNumber, velocity) {
 
 function noteOff (noteNumber) {
     // console.log('note off', noteNumber);
-}
-
-function finishedLoading (bufferList) {
-    console.log('Buffer loaded !');
 }
 
 // 5. Create Web Audio Graph
