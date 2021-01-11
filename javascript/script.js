@@ -5,6 +5,7 @@ let bufferLoader; // buffer
 const resume = document.querySelector('#button-resume');
 let isResumed = false;
 
+
 resume.addEventListener('click', function() {
     context.resume().then(() => {
         console.log("AudioContext resumed");

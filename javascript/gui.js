@@ -1,8 +1,41 @@
+const TRACK_1 = 1;
+const TRACK_10 = 10;
+
+
 const record1 = document.querySelector('#button-record1');
 const record_drums = document.querySelector('#button-record_drums');
 const end_record = document.querySelector('#button-end_rec');
 
-record1.addEventListener('click', function(){
+const row_record1 = document.querySelector('#row-track_1');
+const row_record10 = document.querySelector('#row-track_10');
+const list_rows = [row_record1, row_record10];
+
+let which_selected = 0; // Which instrument is selected and can be played
+
+
+
+function select_row(chosen, value_selected) {
+    list_rows.forEach(element => {
+        if (element === chosen) {
+            element.style = "background-color:wheat;";
+        }
+        else {
+            element.style = "background-color:honeydew;";
+        }   
+    });
+    which_selected = value_selected;
+}
+
+// ************** TRACK 1 *********************
+// ********************************************
+
+row_record1.addEventListener('click', function(){ 
+    select_row(row_record1, 1); 
+});
+
+// -------------- BUTTON RECORD ---------------
+record1.addEventListener('click', function(e){
+    select_row(row_record1, 1);
     record1.className = "btn btn-danger btn-block";
 
     record_drums.className = "btn btn-outline-danger btn-block";
@@ -10,12 +43,23 @@ record1.addEventListener('click', function(){
 });
 
 
+// ************** TRACK 10 *********************
+// ********************************************
+
+row_record10.addEventListener('click', function(){ select_row(row_record10, 10); });
+
+// -------------- BUTTON RECORD ---------------
 record_drums.addEventListener('click', function(){
+    select_row(row_record10, 10);
     record_drums.className = "btn btn-danger btn-block";
 
     record1.className = "btn btn-outline-danger btn-block";
     end_record.className = "btn btn-outline-danger btn-block";
 });
+
+
+
+
 
 
 end_record.addEventListener('click', function(){

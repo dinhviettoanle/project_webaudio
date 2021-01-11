@@ -44,14 +44,15 @@
 	  </div>
 
 	<button type="button" id="button-resume" class="btn btn-warning btn-block">AudioContext OFF</button>
+	
 
 	<div class="container my-3 ">
-		<div class="row border p-3 mt-2" style="background-color:honeydew;">
+		<div class="row border p-3 mt-2 row_tracks" style="background-color:honeydew;" id="row-track_1">
 			<div class="col-2 align-self-center">
-				<b>Track 1</b>
+				<b>Synthesizer</b>
 			</div>
 			<div class="col-2 align-self-center">
-				<em>Microphone</em>
+				<em class="name_device">No device</em>
 			</div>
 			<div class="col-3 align-self-center">
 				<button type="button" id="button-record1" class="btn btn-outline-danger btn-block">Record</button>
@@ -61,12 +62,12 @@
 			</div>
 		</div>
 
-		<div class="row border p-3 mt-2" style="background-color: honeydew;">
+		<div class="row border p-3 mt-2 row_tracks" style="background-color: honeydew;" id="row-track_10">
 			<div class="col-2 align-self-center">
 				<b>Drums</b>
 			</div>
 			<div class="col-2 align-self-center">
-				<em>MIDI Keyboard</em>
+				<em class="name_device">No device</em>
 			</div>
 			<div class="col-3 align-self-center">
 				<button type="button" id="button-record_drums" class="btn btn-outline-danger btn-block">Record</button>
@@ -80,10 +81,10 @@
 
 	<button type="button" id="button-end_rec" class="btn btn-outline-danger btn-block">End recording</button>
 
-	<script src="./javascript/drums.js"></script>
-	<script src="./javascript/gui.js"></script>
-	<script src="./javascript/audio_tracks.js"></script>
 	<script src="./javascript/script.js"></script>
+	<script src="./javascript/gui.js"></script>
+	<script src="./javascript/midi_handler.js"></script>
+	<script src="./javascript/drums_functions.js"></script>
 </body>
 
 </html>

@@ -9,3 +9,7 @@
     top: 1em;
     left: 1em;
 }
+
+.row_tracks {
+    cursor: pointer;
+}
