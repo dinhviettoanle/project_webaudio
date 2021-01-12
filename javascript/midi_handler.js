@@ -89,13 +89,17 @@ function noteOff (noteNumber) {
 }
 
 // 5. Create Web Audio Graph
-function playSound (buffer) {
+function playSound (buffer, gain) {
     // creates a buffer audio source
     let source = context.createBufferSource();
+    let gainNode = context.createGain();
+    gainNode.gain.value = gain;
     // tell the source which sound to play
     source.buffer = buffer;
     // connect to output
-    source.connect(context.destination)
+    // source.connect(context.destination);
+    source.connect(gainNode);
+    gainNode.connect(context.destination);
     // play the source now
     source.start(0);
 }

@@ -37,7 +37,11 @@ window.addEventListener('load', function () {
             '../samples/drums/tom_high.wav',
             '../samples/drums/crash.wav',
         ],
-        finishedLoading
+        function(){
+            console.log('Drums Buffer loaded !');
+            const gui_status = document.querySelector("#status_drums");
+            gui_status.innerHTML = '<i class="fa fa-check-circle fa-2x"></i>';
+        }
     );
     bufferLoaderDrums.load();
 
@@ -55,7 +59,11 @@ window.addEventListener('load', function () {
     }
 
     min_midi_piano = Object.keys(record_samples_piano).reduce((key, v) => record_samples_piano[v] < record_samples_piano[key] ? v : key);
-    bufferLoaderPiano = new BufferLoader(context, list_samples_piano, finishedLoading);
+    bufferLoaderPiano = new BufferLoader(context, list_samples_piano, function(){
+        console.log('Piano Buffer loaded !');
+        const gui_status = document.querySelector("#status_piano");
+        gui_status.innerHTML = '<i class="fa fa-check-circle fa-2x"></i>';
+    });
 
     bufferLoaderPiano.load();
 

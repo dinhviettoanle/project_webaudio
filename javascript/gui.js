@@ -29,6 +29,8 @@ function select_row(chosen, value_selected) {
 // ************** TRACK 1 *********************
 // ********************************************
 
+let volume_1 = 1;
+
 row_record1.addEventListener('click', function(){ 
     select_row(row_record1, 1); 
 });
@@ -42,9 +44,20 @@ record1.addEventListener('click', function(e){
     end_record.className = "btn btn-outline-danger btn-block";
 });
 
+$(function() {
+    $("#slider_piano").slider({
+        value: 100,
+        slide: function(e, ui){
+            volume_1 = ui.value/100;
+        }
+    });
+});
+
 
 // ************** TRACK 10 *********************
 // ********************************************
+
+let volume_10 = 1;
 
 row_record10.addEventListener('click', function(){ select_row(row_record10, 10); });
 
@@ -57,6 +70,14 @@ record_drums.addEventListener('click', function(){
     end_record.className = "btn btn-outline-danger btn-block";
 });
 
+$(function() {
+    $("#slider_drums").slider({
+        value: 100,
+        slide: function(e, ui){
+            volume_10 = ui.value/100;
+        }
+    });
+});
 
 
 
