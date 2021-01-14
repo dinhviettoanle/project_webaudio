@@ -26,34 +26,6 @@ function select_row(chosen, value_selected) {
     which_selected = value_selected;
 }
 
-// ************** TRACK 1 *********************
-// ********************************************
-
-let volume_1 = 1;
-
-row_record1.addEventListener('click', function(){ 
-    select_row(row_record1, 1); 
-});
-
-// -------------- BUTTON RECORD ---------------
-record1.addEventListener('click', function(e){
-    select_row(row_record1, 1);
-    record1.className = "btn btn-danger btn-block";
-
-    record_drums.className = "btn btn-outline-danger btn-block";
-    end_record.className = "btn btn-outline-danger btn-block";
-});
-
-$(function() {
-    $("#slider_piano").slider({
-        value: 100,
-        slide: function(e, ui){
-            volume_1 = ui.value/100;
-        }
-    });
-});
-
-
 // ************** TRACK 10 *********************
 // ********************************************
 
@@ -62,13 +34,13 @@ let volume_10 = 1;
 row_record10.addEventListener('click', function(){ select_row(row_record10, 10); });
 
 // -------------- BUTTON RECORD ---------------
-record_drums.addEventListener('click', function(){
+function change_gui_record_drums(){
     select_row(row_record10, 10);
     record_drums.className = "btn btn-danger btn-block";
 
     record1.className = "btn btn-outline-danger btn-block";
     end_record.className = "btn btn-outline-danger btn-block";
-});
+}
 
 $(function() {
     $("#slider_drums").slider({
@@ -90,10 +62,6 @@ end_record.addEventListener('click', function(){
     record_drums.className = "btn btn-outline-danger btn-block";
 
     is_recording_drums = false;
-    drums_track.push({
-        "time" : context.currentTime,
-        "note" : 0
-    }); // so that the end of the recording is when the button is pushed
 
 
     console.log("All recordings have been ended !");

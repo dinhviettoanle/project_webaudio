@@ -1,3 +1,5 @@
-function note_on_synthesizer(noteNumber) {
-    playSound(bufferLoaderPiano.bufferList[noteNumber - mini_midi_piano - 12], volume_1);
+function note_on_piano(noteNumber) {
+    if (piano_sampler_is_loaded) {
+        sampler_piano.triggerAttackRelease([Tone.Frequency(noteNumber, "midi").toNote()], 4)
+    }
 }
