@@ -2,13 +2,15 @@ const TRACK_1 = 1;
 const TRACK_10 = 10;
 
 
-const record1 = document.querySelector('#button-record1');
-const record_drums = document.querySelector('#button-record_drums');
-const end_record = document.querySelector('#button-end_rec');
+const gui_record_piano = document.querySelector('#button-record_piano');
+const gui_record_drums = document.querySelector('#button-record_drums');
+const list_records = [gui_record_piano, gui_record_drums];
 
-const row_record1 = document.querySelector('#row-track_1');
-const row_record10 = document.querySelector('#row-track_10');
-const list_rows = [row_record1, row_record10];
+const gui_end_record = document.querySelector('#button-end_rec');
+
+const gui_row_record_piano = document.querySelector('#row-track_piano');
+const gui_row_record_drums = document.querySelector('#row-track_drums');
+const list_rows = [gui_row_record_piano, gui_row_record_drums];
 
 let which_selected = 0; // Which instrument is selected and can be played
 
@@ -26,21 +28,25 @@ function select_row(chosen, value_selected) {
     which_selected = value_selected;
 }
 
+
+
+function select_record_button(chosen) {
+    list_records.forEach(element => {
+        if (element === chosen) {
+            element.className = "btn btn-danger btn-block";
+        }
+        else {
+            element.className = "btn btn-outline-danger btn-block";
+        }   
+    });
+}
+
+
 // ************** TRACK 10 *********************
 // ********************************************
 
 let volume_10 = 1;
 
-row_record10.addEventListener('click', function(){ select_row(row_record10, 10); });
-
-// -------------- BUTTON RECORD ---------------
-function change_gui_record_drums(){
-    select_row(row_record10, 10);
-    record_drums.className = "btn btn-danger btn-block";
-
-    record1.className = "btn btn-outline-danger btn-block";
-    end_record.className = "btn btn-outline-danger btn-block";
-}
 
 $(function() {
     $("#slider_drums").slider({
@@ -55,13 +61,14 @@ $(function() {
 
 
 
-end_record.addEventListener('click', function(){
-    end_record.className = "btn btn-danger btn-block";
+gui_end_record.addEventListener('click', function(){
+    gui_end_record.className = "btn btn-danger btn-block";
 
-    record1.className = "btn btn-outline-danger btn-block";
-    record_drums.className = "btn btn-outline-danger btn-block";
+    gui_record_piano.className = "btn btn-outline-danger btn-block";
+    gui_record_drums.className = "btn btn-outline-danger btn-block";
 
-    is_recording_drums = false;
+    drums_track.set_status_recording(false);
+    piano_track.set_status_recording(false);
 
 
     console.log("All recordings have been ended !");
