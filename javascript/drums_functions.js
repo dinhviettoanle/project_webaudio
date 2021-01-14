@@ -1,3 +1,5 @@
+/* ==================== PLAY ON KEYBOARD ====================== */
+
 const AVAILABLE_DRUMS = {
     36 : "C#3",
     40 : "E3",
@@ -16,7 +18,6 @@ function note_on_drums(noteNumber) {
 }
 
 
-
 /* ==================== RECORDING ====================== */
 
 const gui_record_drums = document.querySelector('#button-record_drums');
@@ -30,46 +31,24 @@ let is_recording_drums = false;
 
 
 gui_record_drums.addEventListener('click', function() {
-    time_start_drums = context.currentTime;
+    change_gui_record_drums();
+    time_start_drums = Tone.now();
     console.log("Recording drums...");
     drums_track = [];
     is_recording_drums = true; // Activate the recording when there is a note ON signal
 });
 
 
-function record_drums(){
+function on_record_drums(noteNumber){
     drums_track.push({
-        "time" : context.currentTime - time_start_drums,
-        "note" : noteNumber
+        "time" : Tone.now() - time_start_drums,
+        "name" : noteNumber
     });
 }
 
-// TODO : bug si on enregistre 2 fois
-
 gui_play_drums.addEventListener('click', function(){
-    if (is_recording_drums) {
-        console.log("Finish the recording !");
-        return;
-    }
-
-    if (drums_track.length <= 1){
-        console.log("You may record something...");
-        return;
-    }
-
-    gui_play_drums.className = "btn btn-info btn-block";
-    time_play = context.currentTime;
-
-    drums_track.forEach(element => {
-        time_sample = element.time;
-        let is_waiting = true;
-            while(is_waiting){ // Time precision is not very accurate, but whatever...
-                if (context.currentTime - time_play >= time_sample){
-                    is_waiting = false;
-                }
-            }    
-        noteOn(element.note);
+    const time_start_play = Tone.now();
+    drums_track.forEach(note => {
+        sampler_drums.triggerAttackRelease(AVAILABLE_DRUMS[note.name], 4, note.time + time_start_play);
     });
-
-    gui_play_drums.className = "btn btn-outline-info btn-block";
 });

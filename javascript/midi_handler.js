@@ -77,7 +77,7 @@ function noteOn (noteNumber, velocity) {
     }   
 
     if (is_recording_drums) {
-        gui_record_drums();
+        on_record_drums(noteNumber);
     }
 }
 
