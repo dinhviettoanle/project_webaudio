@@ -71,6 +71,12 @@ function noteOn (noteNumber, velocity) {
         case 1 :
             piano_track.note_on(noteNumber);
             break;
+        case 2 :
+            guitar_track.note_on(noteNumber);
+            break;
+        case 3 :
+            bass_track.note_on(noteNumber);
+            break;
         case 10 :
             drums_track.note_on(noteNumber);
             break;
@@ -78,6 +84,14 @@ function noteOn (noteNumber, velocity) {
 
     if (drums_track.get_status_recording()) {
         drums_track.on_record(noteNumber);
+    }
+
+    else if (guitar_track.get_status_recording()) {
+        guitar_track.on_record(noteNumber);
+    }
+
+    else if (bass_track.get_status_recording()) {
+        bass_track.on_record(noteNumber);
     }
 
     else if (piano_track.get_status_recording()) {

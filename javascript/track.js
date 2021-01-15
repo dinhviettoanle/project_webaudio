@@ -6,10 +6,14 @@ class Track {
         const base_url = data.base_url;
         this.AVAILABLE_NOTES = data.available_notes;
         this.channel = data.channel;
+        this.gain = data.gain
 
 
         // =========== SAMPLER ===========
         this.sampler_is_loaded = false;
+
+        // ** Gain **
+        this.gain_node = new Tone.Gain(this.gain/100).toDestination();
 
         this.sampler = new Tone.Sampler({
             urls: samples,
@@ -21,7 +25,7 @@ class Track {
                 gui_status.innerHTML = '<i class="fa fa-check-circle fa-2x"></i>';
                 this.sampler_is_loaded = true;
             }
-        }).toDestination();
+        }).connect(this.gain_node);
 
 
         // ============= RECORD ===============
@@ -47,6 +51,10 @@ class Track {
         if (this.sampler_is_loaded && this.AVAILABLE_NOTES.includes(noteNumber)) {
             this.sampler.triggerAttackRelease(Tone.Frequency(noteNumber, "midi").toNote(), 4)
         }
+    }
+
+    set_gain(new_gain) {
+        this.gain_node.gain.value = new_gain;
     }
 
 

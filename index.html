@@ -51,8 +51,9 @@
 
 	<button type="button" id="button-resume" class="btn btn-warning btn-block">AudioContext OFF</button>
 	
-
+	  <!-- http://www.bootstraptoggle.com/ -->
 	<div class="container my-3 ">
+
 		<div class="row border p-3 mt-2 row_tracks" style="background-color:honeydew;" id="row-track_piano">
 			<div class="col-1 align-self-center" id="status_piano">
 				<div class="spinner-border" role="status">
@@ -73,6 +74,52 @@
 			</div>
 			<div class="col-3 align-self-center">
 				<div id="slider_piano"></div>
+			</div>
+		</div>
+
+		<div class="row border p-3 mt-2 row_tracks" style="background-color:honeydew;" id="row-track_guitar">
+			<div class="col-1 align-self-center" id="status_guitar">
+				<div class="spinner-border" role="status">
+					<span class="sr-only">Loading...</span>
+				</div>
+			</div>
+			<div class="col-2 align-self-center">
+				<b>Guitar</b>
+			</div>
+			<div class="col-2 align-self-center">
+				<em class="name_device">No device</em>
+			</div>
+			<div class="col-3 align-self-center">
+				<button type="button" id="button-record_guitar" class="btn btn-outline-danger btn-block">Record</button>
+			</div>
+			<div class="col-3 align-self-center">
+				<button type="button" id="button-play_guitar" class="btn btn-outline-info btn-block">Play</button>
+			</div>
+			<div class="col-3 align-self-center">
+				<div id="slider_guitar"></div>
+			</div>
+		</div>
+
+		<div class="row border p-3 mt-2 row_tracks" style="background-color:honeydew;" id="row-track_bass">
+			<div class="col-1 align-self-center" id="status_bass">
+				<div class="spinner-border" role="status">
+					<span class="sr-only">Loading...</span>
+				</div>
+			</div>
+			<div class="col-2 align-self-center">
+				<b>Bass</b>
+			</div>
+			<div class="col-2 align-self-center">
+				<em class="name_device">No device</em>
+			</div>
+			<div class="col-3 align-self-center">
+				<button type="button" id="button-record_bass" class="btn btn-outline-danger btn-block">Record</button>
+			</div>
+			<div class="col-3 align-self-center">
+				<button type="button" id="button-play_bass" class="btn btn-outline-info btn-block">Play</button>
+			</div>
+			<div class="col-3 align-self-center">
+				<div id="slider_bass"></div>
 			</div>
 		</div>
 
