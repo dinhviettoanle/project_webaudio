@@ -3,11 +3,18 @@ let bufferLoader; // buffer
 
 // TODO : gerer les gains des pistes
 
-let drums_sampler_is_loaded = false;
-let sampler_drums = null;
+let drums_track = null;
 
 let piano_sampler_is_loaded = false;
 let sampler_piano = null;
+
+function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
 
 // when document is ready
 window.addEventListener('load', function () {
@@ -19,52 +26,86 @@ window.addEventListener('load', function () {
 
     // ================= INIT DRUMS ==============
 
-    sampler_drums = new Tone.Sampler({
-        urls: {
-            "C3": "kick.wav",
-            "E3": "snare.wav",
-            "G3": "tom_floor.wav",
-            "G#3": "hihat_c.wav",
-            "A3": "tom_mid.wav",
-            "A#3": "hihat_o.wav",
-            "B3": "tom_high.wav",
-            "C#4": "crash.wav",
+    drums_track = new Track({
+        name : "drums",
+        samples: {
+            "C2": "kick.wav",
+            "E2": "snare.wav",
+            "G2": "tom_floor.wav",
+            "G#2": "hihat_c.wav",
+            "A2": "tom_mid.wav",
+            "A#2": "hihat_o.wav",
+            "B2": "tom_high.wav",
+            "C#3": "crash.wav",
         },
-        release: 1,
-        baseUrl: "../samples/drums/",
-        onload: () => {
-            console.log('Drums Buffer loaded !');
-            const gui_status = document.querySelector("#status_drums");
-            gui_status.innerHTML = '<i class="fa fa-check-circle fa-2x"></i>';
-            drums_sampler_is_loaded = true;
-        }
-    }).toDestination();
+        release : 1,
+        base_url : "../samples/drums/",
+        available_notes : [36, 40, 43, 44, 45, 46, 47, 49],
+        channel : 10,
+        gain : 100,
+    });
 
     // ================= INIT PIANO ==============
     let record_samples_piano = {};
-    let list_samples_piano =  [];
     
     for (const [key, value] of Object.entries(pitch_to_file)) {
         const midi_value = Tone.Frequency(key).toMidi();
         record_samples_piano[`${midi_value}`] = `${value}`;
     }
 
-    for (const [key, value] of Object.entries(record_samples_piano)) {
-        list_samples_piano.push(value);
+    piano_track = new Track({
+        name : "piano",
+        samples: record_samples_piano,
+        release : 1,
+        base_url : "https://raw.githubusercontent.com/nbrosowsky/tonejs-instruments/master/samples/piano/",
+        available_notes : [...Array(100).keys()],
+        channel : 1,
+        gain : 50,
+    });
+
+    // ================== INIT GUITAR ==============
+    let record_samples_guitar = {};
+    
+    for (const [key, value] of Object.entries(pitch_to_file)) {
+        const midi_value = Tone.Frequency(key).toMidi();
+        if (midi_value > 26 && midi_value < 63){
+            record_samples_guitar[`${midi_value}`] = `${value}`;
+        }
     }
 
-    sampler_piano = new Tone.Sampler({
-        urls: list_samples_piano,
-        release: 1,
-        baseUrl: "https://raw.githubusercontent.com/nbrosowsky/tonejs-instruments/master/samples/piano/",
-        onload: () => {
-            console.log('Piano Buffer loaded !');
-            const gui_status = document.querySelector("#status_piano");
-            gui_status.innerHTML = '<i class="fa fa-check-circle fa-2x"></i>';
-            piano_sampler_is_loaded = true;
-        }
-    }).toDestination();
+    
+    guitar_track = new Track({
+        name : "guitar",
+        samples: record_samples_guitar,
+        release : 1,
+        base_url : "https://raw.githubusercontent.com/nbrosowsky/tonejs-instruments/master/samples/guitar-acoustic/",
+        available_notes : [...Array(100).keys()],
+        channel : 2,
+        gain : 100,
+    });
+    
 
+
+    // =================== INIT BASS ==================
+    let record_samples_bass = {};
+    
+    for (const [key, value] of Object.entries(pitch_to_file)) {
+        const midi_value = Tone.Frequency(key).toMidi();
+        if (midi_value > 24 && midi_value < 56){
+            record_samples_bass[`${midi_value}`] = `${value}`;
+        }
+    }
+
+    
+    bass_track = new Track({
+        name : "bass",
+        samples: record_samples_bass,
+        release : 1,
+        base_url : "../samples/bass/",
+        available_notes : [...Array(100).keys()],
+        channel : 3,
+        gain : 100,
+    });
 
 
 

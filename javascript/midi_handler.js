@@ -69,15 +69,33 @@ function noteOn (noteNumber, velocity) {
     // console.log('note on', noteNumber, velocity);
     switch (which_selected) {
         case 1 :
-            note_on_piano(noteNumber);
+            piano_track.note_on(noteNumber);
+            break;
+        case 2 :
+            guitar_track.note_on(noteNumber);
+            break;
+        case 3 :
+            bass_track.note_on(noteNumber);
             break;
         case 10 :
-            note_on_drums(noteNumber);
+            drums_track.note_on(noteNumber);
             break;
     }   
 
-    if (is_recording_drums) {
-        on_record_drums(noteNumber);
+    if (drums_track.get_status_recording()) {
+        drums_track.on_record(noteNumber);
+    }
+
+    else if (guitar_track.get_status_recording()) {
+        guitar_track.on_record(noteNumber);
+    }
+
+    else if (bass_track.get_status_recording()) {
+        bass_track.on_record(noteNumber);
+    }
+
+    else if (piano_track.get_status_recording()) {
+        piano_track.on_record(noteNumber);
     }
 }
 
