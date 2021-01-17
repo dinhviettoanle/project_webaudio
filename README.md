@@ -7,7 +7,7 @@ _LE Dinh-Viet-Toan_
 - Clavier MIDI (Testé avec un AKAI-LPK25)
 
 ## Test
-Accessible sur https://dinhviettoanle.github.io/project_webaudio/
+Accessible sur https://dinhviettoanle.github.io/project_webaudio/ ou en clonant le repository
 
 ## Utilisation
 Une loop station utilisant un clavier MIDI : enregistrer au fur et à mesure les différents instruments qui sont ensuite bouclés.
