@@ -1,5 +1,6 @@
 
 
+let main_loop = null;
 
 // 3. Midi callback is called if Midi is accessible
 function onMIDIInit (midi) {
@@ -110,3 +111,53 @@ function stop_other_recordings(current_track) {
         }
     })
 }
+
+// =================== METRONOME =========================
+const gui_play_metro = document.querySelector('#button-play_metro');
+const track_metro = ["A3", "G3", "G3", "G3"];
+let nth_measure = 0;
+let nth_time = 1;
+
+function update_measure_box(nth_measure){
+    if(nth_measure < 1) {
+        $("#box_meas2").hide();
+    }
+    else {
+        $("#box_meas2").show();
+    }
+
+    if(nth_measure < 2) {
+        $("#box_meas3").hide();
+    }
+    else {
+        $("#box_meas3").show();
+    }
+
+    if(nth_measure < 3) {
+        $("#box_meas4").hide();
+    }
+    else {
+        $("#box_meas4").show();
+    }
+}
+
+const metro_loop = new Tone.Sequence(function(time, note) { 
+    update_measure_box(nth_measure);
+    metro_click.triggerAttackRelease(note, 4, time);
+    if(nth_time % 4 == 0) {
+        nth_measure = (nth_measure + 1) % 4;
+    }
+    nth_time++;
+}, track_metro, "4n");
+
+
+gui_play_metro.addEventListener('click', () => {
+    gui_play_metro.disabled = true;
+    main_loop = new Tone.Loop(function(time) {
+        metro_loop.start();
+        
+    }, "4m");
+
+    main_loop.start()
+    Tone.Transport.start();
+});

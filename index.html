@@ -57,6 +57,36 @@
 	  <!-- http://www.bootstraptoggle.com/ -->
 	<div class="container my-3 ">
 
+		<div class="row border p-3 mt-2" style="background-color: gainsboro;" id="">
+			<div class="col-1 align-self-center" id="status_metro">
+				<div class="spinner-border" role="status">
+					<span class="sr-only">Loading...</span>
+				</div>
+			</div>
+			<div class="col-2 align-self-center">
+				<b>Metronome Click</b>
+			</div>
+			<div class="col-3 align-self-center">
+				<div id="slider_metro"></div>
+			</div>
+			<div class="col-2 align-self-center">
+				<button type="button" id="button-play_metro" class="btn btn-primary btn-block">Play</button>
+			</div>
+			<div class="col-1 text-center box_measure" id="box_meas1">
+				<button type="button" class="btn btn-secondary btn-block" disabled>1</button>
+			</div>
+			<div class="col-1 text-center box_measure" id="box_meas2">
+				<button type="button" class="btn btn-secondary btn-block" disabled>2</button>
+			</div>
+			<div class="col-1 text-center box_measure" id="box_meas3">
+				<button type="button" class="btn btn-secondary btn-block" disabled>3</button>
+			</div>
+			<div class="col-1 text-center box_measure" id="box_meas4">
+				<button type="button" class="btn btn-secondary btn-block" disabled>4</button>
+			</div>
+		</div>
+
+
 		<div class="row border p-3 mt-2 row_tracks" style="background-color:honeydew;" id="row-track_piano">
 			<div class="col-1 align-self-center" id="status_piano">
 				<div class="spinner-border" role="status">

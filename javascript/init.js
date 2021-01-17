@@ -8,6 +8,8 @@ let piano_track = null;
 let guitar_track = null;
 let bass_track = null;
 
+let metro_click = null;
+
 let all_tracks = [];
 
 
@@ -18,6 +20,21 @@ window.addEventListener('load', function () {
     context = new AudioContext(); // eslint-disable-line no-undef
 
     Tone.context.lookAhead = 0;
+
+    // ================== METRONOME ==============
+    gain_metro = new Tone.Gain(1).toDestination();
+    metro_click = new Tone.Sampler({
+        urls: {
+            "G3" : "low.wav",
+            "A3" : "high.wav"
+        },
+        release: 1,
+        baseUrl: "../samples/metronome/",
+        onload : () => {
+            const gui_status = document.querySelector(`#status_metro`);
+            gui_status.innerHTML = '<i class="fa fa-check-circle fa-2x"></i>';
+        }
+    }).connect(gain_metro);
 
     // ================= INIT DRUMS ==============
 

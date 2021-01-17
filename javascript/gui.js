@@ -55,6 +55,15 @@ function select_record_button(chosen) {
 // SLIDERS
 
 $(function() {
+    $("#slider_metro").slider({
+        value: 50,
+        slide: function(e, ui){
+            gain_metro.gain.value = ui.value/100;
+        }
+    });
+});
+
+$(function() {
     $("#slider_piano").slider({
         value: 50,
         slide: function(e, ui){
