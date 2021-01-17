@@ -102,3 +102,11 @@ function noteOn (noteNumber, velocity) {
 function noteOff (noteNumber) {
     // console.log('note off', noteNumber);
 }
+
+function stop_other_recordings(current_track) {
+    all_tracks.forEach(element => {
+        if (element !== current_track) {
+            element.end_record();
+        }
+    })
+}

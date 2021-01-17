@@ -4,17 +4,12 @@ let bufferLoader; // buffer
 // TODO : gerer les gains des pistes
 
 let drums_track = null;
+let piano_track = null;
+let guitar_track = null;
+let bass_track = null;
 
-let piano_sampler_is_loaded = false;
-let sampler_piano = null;
+let all_tracks = [];
 
-function httpGet(theUrl)
-{
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
-    xmlHttp.send( null );
-    return xmlHttp.responseText;
-}
 
 // when document is ready
 window.addEventListener('load', function () {
@@ -106,6 +101,8 @@ window.addEventListener('load', function () {
         channel : 3,
         gain : 100,
     });
+
+    all_tracks = [drums_track, piano_track, guitar_track, bass_track];
 
 
 

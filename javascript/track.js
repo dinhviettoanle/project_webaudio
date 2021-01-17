@@ -33,16 +33,27 @@ class Track {
         this.notes_track = [];
         this.status_recording = false;
 
+        this.looping = false;
+
 
         // ============== GUI ==============
         this.gui_row = document.querySelector(`#row-track_${this.name}`);
         this.gui_row.addEventListener('click', () => {select_row(this.gui_row, this.channel)});
 
         this.gui_record = document.querySelector(`#button-record_${this.name}`);
-        this.gui_record.addEventListener('click', () => {this._start_record()});
+        this.gui_record.addEventListener('click', () => {
+            if (!this.status_recording) {
+                this._start_record();
+            }
+            else {
+                this.end_record();
+            }
+        });
 
         this.gui_play = document.querySelector(`#button-play_${this.name}`);
         this.gui_play.addEventListener('click', () => {this._play_test()});
+
+        this.gui_status_record = document.querySelector(`#record_status_${this.name}`);
     }
 
 
@@ -70,11 +81,20 @@ class Track {
     }
 
     _start_record() {
-        select_record_button(this.gui_record);
+        select_record_button(this.gui_record); // On the GUI, select the correct button
+        stop_other_recordings(this);
+
+        const current_number_recordings = get_number_recordings(); // To play a start click if needed
+        console.log(current_number_recordings);
+
+
+        // Start recording
         this.time_start_record = Tone.now();
         console.log(`Recording ${this.name}...`);
         this.notes_track = [];
         this.status_recording = true; // Activate the recording when there is a note ON signal
+
+        add_new_recording();
     }
 
     on_record(noteNumber) {
@@ -82,6 +102,17 @@ class Track {
             "time" : Tone.now() - this.time_start_record,
             "name" : noteNumber
         });
+    }
+
+    end_record() {
+        this.gui_record.className = "btn btn-outline-danger btn-block";
+        this.set_status_recording(false);
+        console.log(`End record ${this.name}`);
+
+        if (this.notes_track.length > 0) {
+            $(`#ensemble_${this.name}`).prop('checked', true).change();
+            this.gui_status_record.innerHTML = '<i class="fa fa-dot-circle-o fa-2x" style="color:FireBrick"></i>'
+        }
     }
     
     // ============== PLAY ===============

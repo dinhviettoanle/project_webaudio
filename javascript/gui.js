@@ -1,7 +1,3 @@
-const TRACK_1 = 1;
-const TRACK_10 = 10;
-
-
 const gui_record_piano = document.querySelector('#button-record_piano');
 const gui_record_guitar = document.querySelector('#button-record_guitar');
 const gui_record_bass = document.querySelector('#button-record_bass');
@@ -19,6 +15,15 @@ const list_rows = [gui_row_record_piano, gui_row_record_guitar, gui_row_record_b
 
 let which_selected = 0; // Which instrument is selected and can be played
 
+let number_recordings = 0;
+
+function get_number_recordings() {
+    return number_recordings;
+}
+
+function add_new_recording() {
+    number_recordings = number_recordings + 1;
+}
 
 
 function select_row(chosen, value_selected) {
@@ -92,16 +97,10 @@ $(function() {
 gui_end_record.addEventListener('click', function(){
     gui_end_record.className = "btn btn-danger btn-block";
 
-    gui_record_piano.className = "btn btn-outline-danger btn-block";
-    gui_record_guitar.className = "btn btn-outline-danger btn-block";
-    gui_record_bass.className = "btn btn-outline-danger btn-block";
-    gui_record_drums.className = "btn btn-outline-danger btn-block";
-
-    drums_track.set_status_recording(false);
-    guitar_track.set_status_recording(false);
-    bass_track.set_status_recording(false);
-    piano_track.set_status_recording(false);
-
+    piano_track.end_record();
+    guitar_track.end_record();
+    bass_track.end_record();
+    drums_track.end_record();
 
     console.log("All recordings have been ended !");
 });
