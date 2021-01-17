@@ -2,8 +2,7 @@ const gui_record_piano = document.querySelector('#button-record_piano');
 const gui_record_guitar = document.querySelector('#button-record_guitar');
 const gui_record_bass = document.querySelector('#button-record_bass');
 const gui_record_drums = document.querySelector('#button-record_drums');
-const gui_end_record = document.querySelector('#button-end_rec');
-const list_records = [gui_record_piano, gui_record_guitar, gui_record_bass, gui_record_drums, gui_end_record];
+const list_records = [gui_record_piano, gui_record_guitar, gui_record_bass, gui_record_drums];
 
 
 
@@ -122,18 +121,5 @@ function update_measure_box(nth_measure){
         $("#box_meas4").show();
     }
 }
-
-
-
-gui_end_record.addEventListener('click', function(){
-    gui_end_record.className = "btn btn-danger btn-block";
-
-    piano_track.end_record();
-    guitar_track.end_record();
-    bass_track.end_record();
-    drums_track.end_record();
-
-    console.log("All recordings have been ended !");
-});
 
 

@@ -116,15 +116,12 @@ let nth_measure = 0;
 let nth_time = 1;
 let nth_loop = 0;
 
-function get_nth_measure(){
-    return nth_measure;
-}
-
-
 
 // =================== METRONOME =========================
-const gui_play_metro = document.querySelector('#button-play_metro');
+
 const track_metro = ["A3", "G3", "G3", "G3"];
+const TEMPO = 120;
+const delta_t_sec = 60/TEMPO;
 
 const metro_loop = new Tone.Sequence(function(time, note) { 
     update_measure_box(nth_measure);
@@ -133,15 +130,14 @@ const metro_loop = new Tone.Sequence(function(time, note) {
         nth_measure = (nth_measure + 1) % 4;
     }
     nth_time++;
-}, track_metro, "4n");
+}, track_metro, delta_t_sec);
 
 
+// ================== MAIN LOOP =========================
+const gui_record_all = document.querySelector('#button-start_rec_all');
 
-
-
-
-gui_play_metro.addEventListener('click', () => {
-    gui_play_metro.disabled = true;
+gui_record_all.addEventListener('click', () => {
+    gui_record_all.disabled = true;
     main_loop = new Tone.Loop(function(time) {
 
         switch(nth_loop) {
@@ -178,7 +174,7 @@ gui_play_metro.addEventListener('click', () => {
         bass_part.start();
         drums_part.start();
         nth_loop++;
-    }, "4m");
+    }, 4*4*delta_t_sec);
 
     main_loop.start();
     Tone.Transport.start();
