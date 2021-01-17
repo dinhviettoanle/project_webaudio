@@ -34,7 +34,7 @@ window.addEventListener('load', function () {
             "A3" : "high.wav"
         },
         release: 1,
-        baseUrl: "../samples/metronome/",
+        baseUrl: "./samples/metronome/",
         onload : () => {
             const gui_status = document.querySelector(`#status_metro`);
             gui_status.innerHTML = '<i class="fa fa-check-circle fa-2x"></i>';
@@ -56,7 +56,7 @@ window.addEventListener('load', function () {
             "C#3": "crash.wav",
         },
         release : 1,
-        base_url : "../samples/drums/",
+        base_url : "./samples/drums/",
         available_notes : [36, 40, 43, 44, 45, 46, 47, 49],
         channel : 10,
         gain : 60,
@@ -125,7 +125,7 @@ window.addEventListener('load', function () {
         name : "bass",
         samples: record_samples_bass,
         release : 1,
-        base_url : "../samples/bass/",
+        base_url : "./samples/bass/",
         available_notes : [...Array(100).keys()],
         channel : 3,
         gain : 100,
