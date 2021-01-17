@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="css/style.css">
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -16,17 +17,15 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.76/Tone.js"></script>
-
-	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 	
-    <title>MIDI Lonely band</title>
+    <title>MIDI Loop Station</title>
 </head>
 
 <body>
     <div class="header">
-		<h1>MIDI Lonely band</h1>
+		<h1>MIDI Keyboard Loop Station</h1>
 		<button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal" id="helpButton">
 			Help
 		</button>	  
@@ -43,7 +42,14 @@
 			  </button>
 			</div>
 			<div class="modal-body">
-			  ...
+				<ol>
+					<li>Start the Audio Context (which seems to be optional...)</li>
+					<li>Check that your MIDI device is well detected (if not, there are "no device" in the column "Device"). You can also try to test each instrument by clicking on each row</li>
+					<li>Check that samples are well-loaded (spinner or in the console)</li>
+					<li>Launch the recording by triggering the "START RECORDING" button. <br>
+						You will record the 4 instruments in this order : pre-recording click of the metronome (4 bars), drums (4 bars), bass (4 bars), guitar (4 bars), piano (4 bars)</li>
+				</ol>
+				Good luck to avoid being out-of-time...
 			</div>
 			<div class="modal-footer">
 			  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -57,90 +63,57 @@
 	  <!-- http://www.bootstraptoggle.com/ -->
 	<div class="container my-3 ">
 
-		<div class="row border p-3 mt-2 row_tracks" style="background-color:honeydew;" id="row-track_piano">
-			<div class="col-1 align-self-center" id="status_piano">
+		<button type="button" id="button-start_rec_all" class="btn btn-danger btn-block rounded-pill">START RECORDING <br> <i class="fa fa-dot-circle-o"></i></button>
+
+		<div class="row p-1 mt-2"></div>
+		
+		<div class="row border p-3 mt-2" style="background-color: gainsboro;" id="">
+			<div class="col-1 align-self-center" id="status_metro">
 				<div class="spinner-border" role="status">
 					<span class="sr-only">Loading...</span>
 				</div>
 			</div>
 			<div class="col-2 align-self-center">
-				<b>Piano</b>
+				<b>Metronome Click</b>
 			</div>
-			<div class="col-2 align-self-center">
-				<em class="name_device">No device</em>
+			<div class="col-4 align-self-center">
+				Volume : <div id="slider_metro"></div>
 			</div>
-			<div class="col-2 align-self-center">
-				<button type="button" id="button-record_piano" class="btn btn-outline-danger btn-block">Record</button>
+			<div class="col-1 align-self-center">Bars : </div>
+			<div class="col-1 text-center box_measure" id="box_meas1">
+				<button type="button" class="btn btn-secondary btn-block" disabled>1</button>
 			</div>
-			<div class="col-1 align-self-center text-center" id="record_status_piano">
-				<i class="fa fa-dot-circle-o fa-2x" style="color:grey"></i>
+			<div class="col-1 text-center box_measure" id="box_meas2">
+				<button type="button" class="btn btn-secondary btn-block" disabled>2</button>
 			</div>
-			<div class="col-2 align-self-center">
-				<button type="button" id="button-play_piano" class="btn btn-outline-info btn-block">Solo</button>
+			<div class="col-1 text-center box_measure" id="box_meas3">
+				<button type="button" class="btn btn-secondary btn-block" disabled>3</button>
 			</div>
-			<div class="col-1 align-self-center text-center">
-				<input type="checkbox" no-checked data-toggle="toggle" data-on="<i class='fa fa-play'></i> Play" data-off="<i class='fa fa-stop'></i> Mute" data-onstyle="success" data-offstyle="danger" id="ensemble_piano">
-			</div>
-			<div class="col-3 align-self-center">
-				<div id="slider_piano"></div>
+			<div class="col-1 text-center box_measure" id="box_meas4">
+				<button type="button" class="btn btn-secondary btn-block" disabled>4</button>
 			</div>
 		</div>
 
-		<div class="row border p-3 mt-2 row_tracks" style="background-color:honeydew;" id="row-track_guitar">
-			<div class="col-1 align-self-center" id="status_guitar">
-				<div class="spinner-border" role="status">
-					<span class="sr-only">Loading...</span>
-				</div>
-			</div>
-			<div class="col-2 align-self-center">
-				<b>Guitar</b>
-			</div>
-			<div class="col-2 align-self-center">
-				<em class="name_device">No device</em>
-			</div>
-			<div class="col-2 align-self-center">
-				<button type="button" id="button-record_guitar" class="btn btn-outline-danger btn-block">Record</button>
-			</div>
-			<div class="col-1 align-self-center text-center" id="record_status_guitar">
-				<i class="fa fa-dot-circle-o fa-2x" style="color:grey"></i>
-			</div>
-			<div class="col-2 align-self-center">
-				<button type="button" id="button-play_guitar" class="btn btn-outline-info btn-block">Solo</button>
-			</div>
-			<div class="col-1 align-self-center text-center">
-				<input type="checkbox" no-checked data-toggle="toggle" data-on="<i class='fa fa-play'></i> Play" data-off="<i class='fa fa-stop'></i> Mute" data-onstyle="success" data-offstyle="danger" id="ensemble_guitar">
-			</div>
-			<div class="col-3 align-self-center">
-				<div id="slider_guitar"></div>
-			</div>
-		</div>
+		<div class="row p-1 mt-2"></div>
 
-		<div class="row border p-3 mt-2 row_tracks" style="background-color:honeydew;" id="row-track_bass">
-			<div class="col-1 align-self-center" id="status_bass">
-				<div class="spinner-border" role="status">
-					<span class="sr-only">Loading...</span>
-				</div>
+		<div class="row border p-1 mt-2 row_tracks" style="background-color: ghostwhite;">
+			<div class="col-1 align-self-center">
+				<b>Samples Status</b>
 			</div>
 			<div class="col-2 align-self-center">
-				<b>Bass</b>
+				<b>Instrument name</b>
 			</div>
 			<div class="col-2 align-self-center">
-				<em class="name_device">No device</em>
+				<b>Device</b>
 			</div>
 			<div class="col-2 align-self-center">
-				<button type="button" id="button-record_bass" class="btn btn-outline-danger btn-block">Record</button>
-			</div>
-			<div class="col-1 align-self-center text-center" id="record_status_bass">
-				<i class="fa fa-dot-circle-o fa-2x" style="color:grey"></i>
+				<b>Status recording</b>
 			</div>
 			<div class="col-2 align-self-center">
-				<button type="button" id="button-play_bass" class="btn btn-outline-info btn-block">Solo</button>
-			</div>
-			<div class="col-1 align-self-center text-center">
-				<input type="checkbox" no-checked data-toggle="toggle" data-on="<i class='fa fa-play'></i> Play" data-off="<i class='fa fa-stop'></i> Mute" data-onstyle="success" data-offstyle="danger" id="ensemble_bass">
+				<b>Track recorded</b>
 			</div>
 			<div class="col-3 align-self-center">
-				<div id="slider_bass"></div>
+				<b>Volume</b>
 			</div>
 		</div>
 
@@ -159,23 +132,87 @@
 			<div class="col-2 align-self-center">
 				<button type="button" id="button-record_drums" class="btn btn-outline-danger btn-block">Record</button>
 			</div>
-			<div class="col-1 align-self-center text-center" id="record_status_drums">
-				<i class="fa fa-dot-circle-o fa-2x" style="color:grey"></i>
-			</div>
-			<div class="col-2 align-self-center">
-				<button type="button" id="button-play_drums" class="btn btn-outline-info btn-block">Solo</button>
-			</div>
-			<div class="col-1 align-self-center text-center">
-				<input type="checkbox" no-checked data-toggle="toggle" data-on="<i class='fa fa-play'></i> Play" data-off="<i class='fa fa-stop'></i> Mute" data-onstyle="success" data-offstyle="danger" id="ensemble_drums">
+			<div class="col-2 align-self-center text-center">
+				<input type="checkbox" no-checked data-toggle="toggle" data-width="100%" data-height="100%" data-on="Recording OK" data-off="No recording" data-onstyle="success" data-offstyle="danger" id="ensemble_drums">
 			</div>
 			<div class="col-3 align-self-center">
 				<div id="slider_drums"></div>
 			</div>
 		</div>
+
+		<div class="row border p-3 mt-2 row_tracks" style="background-color:honeydew;" id="row-track_bass">
+			<div class="col-1 align-self-center" id="status_bass">
+				<div class="spinner-border" role="status">
+					<span class="sr-only">Loading...</span>
+				</div>
+			</div>
+			<div class="col-2 align-self-center">
+				<b>Bass</b>
+			</div>
+			<div class="col-2 align-self-center">
+				<em class="name_device">No device</em>
+			</div>
+			<div class="col-2 align-self-center">
+				<button type="button" id="button-record_bass" class="btn btn-outline-danger btn-block">Record</button>
+			</div>
+			<div class="col-2 align-self-center text-center">
+				<input type="checkbox" no-checked data-toggle="toggle" data-width="100%" data-height="100%" data-on="Recording OK" data-off="No recording" data-onstyle="success" data-offstyle="danger" id="ensemble_bass">
+			</div>
+			<div class="col-3 align-self-center">
+				<div id="slider_bass"></div>
+			</div>
+		</div>
+
+		<div class="row border p-3 mt-2 row_tracks" style="background-color:honeydew;" id="row-track_guitar">
+			<div class="col-1 align-self-center" id="status_guitar">
+				<div class="spinner-border" role="status">
+					<span class="sr-only">Loading...</span>
+				</div>
+			</div>
+			<div class="col-2 align-self-center">
+				<b>Guitar</b>
+			</div>
+			<div class="col-2 align-self-center">
+				<em class="name_device">No device</em>
+			</div>
+			<div class="col-2 align-self-center">
+				<button type="button" id="button-record_guitar" class="btn btn-outline-danger btn-block">Record</button>
+			</div>
+			<div class="col-2 align-self-center text-center">
+				<input type="checkbox" no-checked data-toggle="toggle" data-width="100%" data-height="100%" data-on="Recording OK" data-off="No recording" data-onstyle="success"  data-offstyle="danger" id="ensemble_guitar">
+			</div>
+			<div class="col-3 align-self-center">
+				<div id="slider_guitar"></div>
+			</div>
+		</div>
+
+
+		<div class="row border p-3 mt-2 row_tracks" style="background-color:honeydew;" id="row-track_piano">
+			<div class="col-1 align-self-center" id="status_piano">
+				<div class="spinner-border" role="status">
+					<span class="sr-only">Loading...</span>
+				</div>
+			</div>
+			<div class="col-2 align-self-center">
+				<b>Piano</b>
+			</div>
+			<div class="col-2 align-self-center">
+				<em class="name_device">No device</em>
+			</div>
+			<div class="col-2 align-self-center">
+				<button type="button" id="button-record_piano" class="btn btn-outline-danger btn-block">Record</button>
+			</div>
+			<div class="col-2 align-self-center text-center">
+				<input type="checkbox" data-toggle="toggle" data-width="100%" data-height="100%" data-on="Recording OK" data-off="No recording" data-onstyle="success"  data-offstyle="danger" id="ensemble_piano">
+			</div>
+			<div class="col-3 align-self-center">
+				<div id="slider_piano"></div>
+			</div>
+		</div>
+
+		
 		
 	</div>
-
-	<button type="button" id="button-end_rec" class="btn btn-outline-danger btn-block">End recording</button>
 
 	<script src="./javascript/constants.js"></script>
 	<script src="./javascript/track.js"></script>

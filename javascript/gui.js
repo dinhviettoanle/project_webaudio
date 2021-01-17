@@ -2,8 +2,7 @@ const gui_record_piano = document.querySelector('#button-record_piano');
 const gui_record_guitar = document.querySelector('#button-record_guitar');
 const gui_record_bass = document.querySelector('#button-record_bass');
 const gui_record_drums = document.querySelector('#button-record_drums');
-const gui_end_record = document.querySelector('#button-end_rec');
-const list_records = [gui_record_piano, gui_record_guitar, gui_record_bass, gui_record_drums, gui_end_record];
+const list_records = [gui_record_piano, gui_record_guitar, gui_record_bass, gui_record_drums];
 
 
 
@@ -55,6 +54,15 @@ function select_record_button(chosen) {
 // SLIDERS
 
 $(function() {
+    $("#slider_metro").slider({
+        value: 50,
+        slide: function(e, ui){
+            gain_metro.gain.value = ui.value/100;
+        }
+    });
+});
+
+$(function() {
     $("#slider_piano").slider({
         value: 50,
         slide: function(e, ui){
@@ -83,7 +91,7 @@ $(function() {
 
 $(function() {
     $("#slider_drums").slider({
-        value: 100,
+        value: 60,
         slide: function(e, ui){
             drums_track.set_gain(ui.value/100);
         }
@@ -91,18 +99,27 @@ $(function() {
 });
 
 
+function update_measure_box(nth_measure){
+    if(nth_measure < 1) {
+        $("#box_meas2").hide();
+    }
+    else {
+        $("#box_meas2").show();
+    }
 
+    if(nth_measure < 2) {
+        $("#box_meas3").hide();
+    }
+    else {
+        $("#box_meas3").show();
+    }
 
-
-gui_end_record.addEventListener('click', function(){
-    gui_end_record.className = "btn btn-danger btn-block";
-
-    piano_track.end_record();
-    guitar_track.end_record();
-    bass_track.end_record();
-    drums_track.end_record();
-
-    console.log("All recordings have been ended !");
-});
+    if(nth_measure < 3) {
+        $("#box_meas4").hide();
+    }
+    else {
+        $("#box_meas4").show();
+    }
+}
 
 

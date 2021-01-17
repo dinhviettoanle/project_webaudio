@@ -46,14 +46,9 @@ class Track {
                 this._start_record();
             }
             else {
-                this.end_record();
+                this.end_record(true);
             }
         });
-
-        this.gui_play = document.querySelector(`#button-play_${this.name}`);
-        this.gui_play.addEventListener('click', () => {this._play_test()});
-
-        this.gui_status_record = document.querySelector(`#record_status_${this.name}`);
     }
 
 
@@ -84,42 +79,46 @@ class Track {
         select_record_button(this.gui_record); // On the GUI, select the correct button
         stop_other_recordings(this);
 
-        const current_number_recordings = get_number_recordings(); // To play a start click if needed
-        console.log(current_number_recordings);
-
-
         // Start recording
         this.time_start_record = Tone.now();
         console.log(`Recording ${this.name}...`);
         this.notes_track = [];
         this.status_recording = true; // Activate the recording when there is a note ON signal
-
-        add_new_recording();
     }
 
     on_record(noteNumber) {
         this.notes_track.push({
             "time" : Tone.now() - this.time_start_record,
-            "name" : noteNumber
+            "note" : noteNumber,
+            "velocity" : 1,
         });
     }
 
-    end_record() {
+    end_record(new_record) {
         this.gui_record.className = "btn btn-outline-danger btn-block";
         this.set_status_recording(false);
-        console.log(`End record ${this.name}`);
 
         if (this.notes_track.length > 0) {
             $(`#ensemble_${this.name}`).prop('checked', true).change();
-            this.gui_status_record.innerHTML = '<i class="fa fa-dot-circle-o fa-2x" style="color:FireBrick"></i>'
+            if (new_record) {
+                this.update_part();
+            }
         }
     }
-    
-    // ============== PLAY ===============
-    _play_test() {
-        const time_start_play = Tone.now();
-        this.notes_track.forEach(note => {
-            this.sampler.triggerAttackRelease(Tone.Frequency(note.name, "midi").toNote(), 4, note.time + time_start_play);
+
+    // =============== PART ==============
+    create_part() {
+        this.part = new Tone.Part(((time, value) => {
+
+            this.sampler.triggerAttackRelease(Tone.Frequency(value, "midi").toNote(), 4, time);
+        }), this.notes_track);
+        return this.part;
+    }
+
+    update_part(){
+        console.log(`${this.name} part updated`);
+        this.notes_track.forEach(value => {
+            this.part.add(value.time, value.note);
         });
     }
 }

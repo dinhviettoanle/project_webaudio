@@ -8,6 +8,13 @@ let piano_track = null;
 let guitar_track = null;
 let bass_track = null;
 
+let piano_part = null;
+let guitar_part = null;
+let drums_part = null;
+let bass_part = null;
+
+let metro_click = null;
+
 let all_tracks = [];
 
 
@@ -18,6 +25,21 @@ window.addEventListener('load', function () {
     context = new AudioContext(); // eslint-disable-line no-undef
 
     Tone.context.lookAhead = 0;
+
+    // ================== METRONOME ==============
+    gain_metro = new Tone.Gain(1).toDestination();
+    metro_click = new Tone.Sampler({
+        urls: {
+            "G3" : "low.wav",
+            "A3" : "high.wav"
+        },
+        release: 1,
+        baseUrl: "../samples/metronome/",
+        onload : () => {
+            const gui_status = document.querySelector(`#status_metro`);
+            gui_status.innerHTML = '<i class="fa fa-check-circle fa-2x"></i>';
+        }
+    }).connect(gain_metro);
 
     // ================= INIT DRUMS ==============
 
@@ -37,8 +59,12 @@ window.addEventListener('load', function () {
         base_url : "../samples/drums/",
         available_notes : [36, 40, 43, 44, 45, 46, 47, 49],
         channel : 10,
-        gain : 100,
+        gain : 60,
     });
+
+    drums_part = drums_track.create_part();
+
+   
 
     // ================= INIT PIANO ==============
     let record_samples_piano = {};
@@ -57,6 +83,8 @@ window.addEventListener('load', function () {
         channel : 1,
         gain : 50,
     });
+
+    piano_part = piano_track.create_part();
 
     // ================== INIT GUITAR ==============
     let record_samples_guitar = {};
@@ -79,6 +107,7 @@ window.addEventListener('load', function () {
         gain : 100,
     });
     
+    guitar_part = guitar_track.create_part();
 
 
     // =================== INIT BASS ==================
@@ -101,6 +130,8 @@ window.addEventListener('load', function () {
         channel : 3,
         gain : 100,
     });
+
+    bass_part = bass_track.create_part();
 
     all_tracks = [drums_track, piano_track, guitar_track, bass_track];
 

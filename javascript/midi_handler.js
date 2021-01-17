@@ -1,5 +1,6 @@
 
 
+let main_loop = null;
 
 // 3. Midi callback is called if Midi is accessible
 function onMIDIInit (midi) {
@@ -106,7 +107,75 @@ function noteOff (noteNumber) {
 function stop_other_recordings(current_track) {
     all_tracks.forEach(element => {
         if (element !== current_track) {
-            element.end_record();
+            element.end_record(false);
         }
     })
 }
+
+let nth_measure = 0;
+let nth_time = 1;
+let nth_loop = 0;
+
+
+// =================== METRONOME =========================
+
+const track_metro = ["A3", "G3", "G3", "G3"];
+const TEMPO = 120;
+const delta_t_sec = 60/TEMPO;
+
+const metro_loop = new Tone.Sequence(function(time, note) { 
+    update_measure_box(nth_measure);
+    metro_click.triggerAttackRelease(note, 4, time);
+    if(nth_time % 4 == 0) {
+        nth_measure = (nth_measure + 1) % 4;
+    }
+    nth_time++;
+}, track_metro, delta_t_sec);
+
+
+// ================== MAIN LOOP =========================
+const gui_record_all = document.querySelector('#button-start_rec_all');
+
+gui_record_all.addEventListener('click', () => {
+    gui_record_all.disabled = true;
+    main_loop = new Tone.Loop(function(time) {
+
+        switch(nth_loop) {
+            case 1 :
+                gui_record_drums.click();
+                break;
+            case 2 :
+                gui_record_drums.click();
+                gui_record_bass.click();
+                break;
+            case 3 :
+                gui_record_bass.click();
+                gui_record_guitar.click();
+                break;
+            case 4 :
+                gui_record_guitar.click();
+                gui_record_piano.click();
+                break;
+            case 5 :
+                gui_record_piano.click();
+                break;
+        }
+        
+
+        metro_loop.stop();
+        piano_part.stop();
+        guitar_part.stop();
+        bass_part.stop();
+        drums_part.stop();
+
+        metro_loop.start();
+        piano_part.start();
+        guitar_part.start();
+        bass_part.start();
+        drums_part.start();
+        nth_loop++;
+    }, 4*4*delta_t_sec);
+
+    main_loop.start();
+    Tone.Transport.start();
+});
