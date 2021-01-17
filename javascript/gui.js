@@ -1,11 +1,15 @@
+/*
+* Handle stuff about graphical user interface
+*/
+
+// Buttons record
 const gui_record_piano = document.querySelector('#button-record_piano');
 const gui_record_guitar = document.querySelector('#button-record_guitar');
 const gui_record_bass = document.querySelector('#button-record_bass');
 const gui_record_drums = document.querySelector('#button-record_drums');
 const list_records = [gui_record_piano, gui_record_guitar, gui_record_bass, gui_record_drums];
 
-
-
+// Rows instruments
 const gui_row_record_piano = document.querySelector('#row-track_piano');
 const gui_row_record_guitar = document.querySelector('#row-track_guitar');
 const gui_row_record_bass = document.querySelector('#row-track_bass');
@@ -14,17 +18,8 @@ const list_rows = [gui_row_record_piano, gui_row_record_guitar, gui_row_record_b
 
 let which_selected = 0; // Which instrument is selected and can be played
 
-let number_recordings = 0;
 
-function get_number_recordings() {
-    return number_recordings;
-}
-
-function add_new_recording() {
-    number_recordings = number_recordings + 1;
-}
-
-
+// Enhance a selected row and un-enhance the others
 function select_row(chosen, value_selected) {
     list_rows.forEach(element => {
         if (element === chosen) {
@@ -38,7 +33,7 @@ function select_row(chosen, value_selected) {
 }
 
 
-
+// Enhance a selected button and un-enhance the others
 function select_record_button(chosen) {
     list_records.forEach(element => {
         if (element === chosen) {
@@ -51,7 +46,7 @@ function select_record_button(chosen) {
 }
 
 
-// SLIDERS
+// VOLUME SLIDERS
 
 $(function() {
     $("#slider_metro").slider({
@@ -98,6 +93,8 @@ $(function() {
     });
 });
 
+
+// Count measures in the metronome row
 
 function update_measure_box(nth_measure){
     if(nth_measure < 1) {

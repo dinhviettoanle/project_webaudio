@@ -1,6 +1,10 @@
+/*
+* Handle stuff about MIDI keyboard interaction
+*/
 
 
-let main_loop = null;
+let main_loop = null; // Contains all parts (metro, drums, bass, guitar, piano)
+
 
 // 3. Midi callback is called if Midi is accessible
 function onMIDIInit (midi) {
@@ -83,6 +87,7 @@ function noteOn (noteNumber, velocity) {
             break;
     }   
 
+    // If is recording, will add note to record
     if (drums_track.get_status_recording()) {
         drums_track.on_record(noteNumber);
     }
@@ -100,6 +105,7 @@ function noteOn (noteNumber, velocity) {
     }
 }
 
+// Too lazy to implement noteOff... Else, it might just be a triggerRelease in the Track object...
 function noteOff (noteNumber) {
     // console.log('note off', noteNumber);
 }
@@ -124,10 +130,10 @@ const TEMPO = 120;
 const delta_t_sec = 60/TEMPO;
 
 const metro_loop = new Tone.Sequence(function(time, note) { 
-    update_measure_box(nth_measure);
+    update_measure_box(nth_measure); // Display or hide boxes counting the measures
     metro_click.triggerAttackRelease(note, 4, time);
     if(nth_time % 4 == 0) {
-        nth_measure = (nth_measure + 1) % 4;
+        nth_measure = (nth_measure + 1) % 4; // Update the measure number
     }
     nth_time++;
 }, track_metro, delta_t_sec);
@@ -141,27 +147,33 @@ gui_record_all.addEventListener('click', () => {
     main_loop = new Tone.Loop(function(time) {
 
         switch(nth_loop) {
+            // First 4 bars : only the metronome
+            // Second loop : record drums
             case 1 :
                 gui_record_drums.click();
                 break;
+            // Third loop : unrecord drums and record bass
             case 2 :
                 gui_record_drums.click();
                 gui_record_bass.click();
                 break;
+            // 4th loop : unrecord bass and record guitar
             case 3 :
                 gui_record_bass.click();
                 gui_record_guitar.click();
                 break;
+            // 5th loop ; unrecord guitar and record piano
             case 4 :
                 gui_record_guitar.click();
                 gui_record_piano.click();
                 break;
+            // 6th loop : unrecord piano
             case 5 :
                 gui_record_piano.click();
                 break;
         }
         
-
+        // I dont know if there is another method than stop and restard a Tone.Part()
         metro_loop.stop();
         piano_part.stop();
         guitar_part.stop();
@@ -174,7 +186,7 @@ gui_record_all.addEventListener('click', () => {
         bass_part.start();
         drums_part.start();
         nth_loop++;
-    }, 4*4*delta_t_sec);
+    }, 4*4*delta_t_sec); // 4 bars of key signature 4/4
 
     main_loop.start();
     Tone.Transport.start();

@@ -31,7 +31,7 @@
 		</button>	  
 	</div>
 
-
+	<!-- HELP POP-UP -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 		  <div class="modal-content">
@@ -49,6 +49,7 @@
 					<li>Launch the recording by triggering the "START RECORDING" button. <br>
 						You will record the 4 instruments in this order : pre-recording click of the metronome (4 bars), drums (4 bars), bass (4 bars), guitar (4 bars), piano (4 bars)</li>
 				</ol>
+				Rq : Drums are mapped C2, E2, G2, G#2, A2, A#2, B2, C#3 <br>
 				Good luck to avoid being out-of-time...
 			</div>
 			<div class="modal-footer">
@@ -62,11 +63,13 @@
 	
 	  <!-- http://www.bootstraptoggle.com/ -->
 	<div class="container my-3 ">
-
+		
+		<!-- BUTTON RECORDING -->
 		<button type="button" id="button-start_rec_all" class="btn btn-danger btn-block rounded-pill">START RECORDING <br> <i class="fa fa-dot-circle-o"></i></button>
 
 		<div class="row p-1 mt-2"></div>
 		
+		<!-- METRONOME ROW -->
 		<div class="row border p-3 mt-2" style="background-color: gainsboro;" id="">
 			<div class="col-1 align-self-center" id="status_metro">
 				<div class="spinner-border" role="status">
@@ -96,6 +99,7 @@
 
 		<div class="row p-1 mt-2"></div>
 
+		<!-- HEADER INSTRUMENTS -->
 		<div class="row border p-1 mt-2 row_tracks" style="background-color: ghostwhite;">
 			<div class="col-1 align-self-center">
 				<b>Samples Status</b>
@@ -117,6 +121,7 @@
 			</div>
 		</div>
 
+		<!-- DRUMS -->
 		<div class="row border p-3 mt-2 row_tracks" style="background-color: honeydew;" id="row-track_drums">
 			<div class="col-1 align-self-center" id="status_drums">
 				<div class="spinner-border" role="status">
@@ -140,6 +145,7 @@
 			</div>
 		</div>
 
+		<!-- BASS -->
 		<div class="row border p-3 mt-2 row_tracks" style="background-color:honeydew;" id="row-track_bass">
 			<div class="col-1 align-self-center" id="status_bass">
 				<div class="spinner-border" role="status">
@@ -163,6 +169,7 @@
 			</div>
 		</div>
 
+		<!-- GUITAR -->
 		<div class="row border p-3 mt-2 row_tracks" style="background-color:honeydew;" id="row-track_guitar">
 			<div class="col-1 align-self-center" id="status_guitar">
 				<div class="spinner-border" role="status">
@@ -186,7 +193,7 @@
 			</div>
 		</div>
 
-
+		<!-- PIANO -->
 		<div class="row border p-3 mt-2 row_tracks" style="background-color:honeydew;" id="row-track_piano">
 			<div class="col-1 align-self-center" id="status_piano">
 				<div class="spinner-border" role="status">
@@ -210,7 +217,6 @@
 			</div>
 		</div>
 
-		
 		
 	</div>
 

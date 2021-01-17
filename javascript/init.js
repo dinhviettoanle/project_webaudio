@@ -1,18 +1,23 @@
+/*
+* Stuff done when loading the page
+*/
+
 let context; // the Web Audio "context" object
 let bufferLoader; // buffer
 
-// TODO : gerer les gains des pistes
-
+// Objects Track
 let drums_track = null;
 let piano_track = null;
 let guitar_track = null;
 let bass_track = null;
 
+// Instruments parts to go into the main loo^p
 let piano_part = null;
 let guitar_part = null;
 let drums_part = null;
 let bass_part = null;
 
+// Metronome
 let metro_click = null;
 
 let all_tracks = [];
@@ -24,9 +29,9 @@ window.addEventListener('load', function () {
     window.AudioContext = window.AudioContext || window.webkitAudioContext;
     context = new AudioContext(); // eslint-disable-line no-undef
 
-    Tone.context.lookAhead = 0;
+    Tone.context.lookAhead = 0; // else, big delay
 
-    // ================== METRONOME ==============
+    // ================== METRONOME ============== En faire un Track ?
     gain_metro = new Tone.Gain(1).toDestination();
     metro_click = new Tone.Sampler({
         urls: {
@@ -69,6 +74,7 @@ window.addEventListener('load', function () {
     // ================= INIT PIANO ==============
     let record_samples_piano = {};
     
+    // Retrieve samples names from website
     for (const [key, value] of Object.entries(pitch_to_file)) {
         const midi_value = Tone.Frequency(key).toMidi();
         record_samples_piano[`${midi_value}`] = `${value}`;
@@ -89,6 +95,7 @@ window.addEventListener('load', function () {
     // ================== INIT GUITAR ==============
     let record_samples_guitar = {};
     
+    // Retrieve samples names from website
     for (const [key, value] of Object.entries(pitch_to_file)) {
         const midi_value = Tone.Frequency(key).toMidi();
         if (midi_value > 26 && midi_value < 63){
@@ -113,6 +120,7 @@ window.addEventListener('load', function () {
     // =================== INIT BASS ==================
     let record_samples_bass = {};
     
+    // Retrieve samples names from website
     for (const [key, value] of Object.entries(pitch_to_file)) {
         const midi_value = Tone.Frequency(key).toMidi();
         if (midi_value > 24 && midi_value < 56){
