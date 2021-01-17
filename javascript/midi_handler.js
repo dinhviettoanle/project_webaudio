@@ -107,7 +107,7 @@ function noteOff (noteNumber) {
 function stop_other_recordings(current_track) {
     all_tracks.forEach(element => {
         if (element !== current_track) {
-            element.end_record();
+            element.end_record(false);
         }
     })
 }
@@ -143,6 +143,29 @@ const metro_loop = new Tone.Sequence(function(time, note) {
 gui_play_metro.addEventListener('click', () => {
     gui_play_metro.disabled = true;
     main_loop = new Tone.Loop(function(time) {
+
+        switch(nth_loop) {
+            case 1 :
+                gui_record_drums.click();
+                break;
+            case 2 :
+                gui_record_drums.click();
+                gui_record_bass.click();
+                break;
+            case 3 :
+                gui_record_bass.click();
+                gui_record_guitar.click();
+                break;
+            case 4 :
+                gui_record_guitar.click();
+                gui_record_piano.click();
+                break;
+            case 5 :
+                gui_record_piano.click();
+                break;
+        }
+        
+
         metro_loop.stop();
         piano_part.stop();
         guitar_part.stop();
@@ -160,10 +183,3 @@ gui_play_metro.addEventListener('click', () => {
     main_loop.start();
     Tone.Transport.start();
 });
-
-function add_part_to_main(new_part) {
-    main_loop.callback = function(time) {
-        metro_loop.start();
-        new_part.start();
-    }
-}

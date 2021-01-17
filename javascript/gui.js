@@ -92,7 +92,7 @@ $(function() {
 
 $(function() {
     $("#slider_drums").slider({
-        value: 100,
+        value: 60,
         slide: function(e, ui){
             drums_track.set_gain(ui.value/100);
         }

@@ -59,7 +59,7 @@ window.addEventListener('load', function () {
         base_url : "../samples/drums/",
         available_notes : [36, 40, 43, 44, 45, 46, 47, 49],
         channel : 10,
-        gain : 100,
+        gain : 60,
     });
 
     drums_part = drums_track.create_part();

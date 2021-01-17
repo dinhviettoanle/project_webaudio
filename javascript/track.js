@@ -46,7 +46,7 @@ class Track {
                 this._start_record();
             }
             else {
-                this.end_record();
+                this.end_record(true);
             }
         });
 
@@ -93,8 +93,6 @@ class Track {
         console.log(`Recording ${this.name}...`);
         this.notes_track = [];
         this.status_recording = true; // Activate the recording when there is a note ON signal
-
-        add_new_recording();
     }
 
     on_record(noteNumber) {
@@ -105,14 +103,16 @@ class Track {
         });
     }
 
-    end_record() {
+    end_record(new_record) {
         this.gui_record.className = "btn btn-outline-danger btn-block";
         this.set_status_recording(false);
 
         if (this.notes_track.length > 0) {
             $(`#ensemble_${this.name}`).prop('checked', true).change();
             this.gui_status_record.innerHTML = '<i class="fa fa-dot-circle-o fa-2x" style="color:FireBrick"></i>';
-            this.update_part();
+            if (new_record) {
+                this.update_part();
+            }
         }
     }
     
