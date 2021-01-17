@@ -86,62 +86,32 @@
 			</div>
 		</div>
 
-
-		<div class="row border p-3 mt-2 row_tracks" style="background-color:honeydew;" id="row-track_piano">
-			<div class="col-1 align-self-center" id="status_piano">
+		<div class="row border p-3 mt-2 row_tracks" style="background-color: honeydew;" id="row-track_drums">
+			<div class="col-1 align-self-center" id="status_drums">
 				<div class="spinner-border" role="status">
 					<span class="sr-only">Loading...</span>
 				</div>
 			</div>
 			<div class="col-2 align-self-center">
-				<b>Piano</b>
+				<b>Drums</b>
 			</div>
 			<div class="col-2 align-self-center">
 				<em class="name_device">No device</em>
 			</div>
 			<div class="col-2 align-self-center">
-				<button type="button" id="button-record_piano" class="btn btn-outline-danger btn-block">Record</button>
+				<button type="button" id="button-record_drums" class="btn btn-outline-danger btn-block">Record</button>
 			</div>
-			<div class="col-1 align-self-center text-center" id="record_status_piano">
+			<div class="col-1 align-self-center text-center" id="record_status_drums">
 				<i class="fa fa-dot-circle-o fa-2x" style="color:grey"></i>
 			</div>
 			<div class="col-2 align-self-center">
-				<button type="button" id="button-play_piano" class="btn btn-outline-info btn-block">Solo</button>
+				<button type="button" id="button-play_drums" class="btn btn-outline-info btn-block">Solo</button>
 			</div>
 			<div class="col-1 align-self-center text-center">
-				<input type="checkbox" no-checked data-toggle="toggle" data-on="<i class='fa fa-play'></i> Play" data-off="<i class='fa fa-stop'></i> Mute" data-onstyle="success" data-offstyle="danger" id="ensemble_piano">
+				<input type="checkbox" no-checked data-toggle="toggle" data-on="<i class='fa fa-play'></i> Play" data-off="<i class='fa fa-stop'></i> Mute" data-onstyle="success" data-offstyle="danger" id="ensemble_drums">
 			</div>
 			<div class="col-3 align-self-center">
-				<div id="slider_piano"></div>
-			</div>
-		</div>
-
-		<div class="row border p-3 mt-2 row_tracks" style="background-color:honeydew;" id="row-track_guitar">
-			<div class="col-1 align-self-center" id="status_guitar">
-				<div class="spinner-border" role="status">
-					<span class="sr-only">Loading...</span>
-				</div>
-			</div>
-			<div class="col-2 align-self-center">
-				<b>Guitar</b>
-			</div>
-			<div class="col-2 align-self-center">
-				<em class="name_device">No device</em>
-			</div>
-			<div class="col-2 align-self-center">
-				<button type="button" id="button-record_guitar" class="btn btn-outline-danger btn-block">Record</button>
-			</div>
-			<div class="col-1 align-self-center text-center" id="record_status_guitar">
-				<i class="fa fa-dot-circle-o fa-2x" style="color:grey"></i>
-			</div>
-			<div class="col-2 align-self-center">
-				<button type="button" id="button-play_guitar" class="btn btn-outline-info btn-block">Solo</button>
-			</div>
-			<div class="col-1 align-self-center text-center">
-				<input type="checkbox" no-checked data-toggle="toggle" data-on="<i class='fa fa-play'></i> Play" data-off="<i class='fa fa-stop'></i> Mute" data-onstyle="success" data-offstyle="danger" id="ensemble_guitar">
-			</div>
-			<div class="col-3 align-self-center">
-				<div id="slider_guitar"></div>
+				<div id="slider_drums"></div>
 			</div>
 		</div>
 
@@ -174,34 +144,70 @@
 			</div>
 		</div>
 
-		<div class="row border p-3 mt-2 row_tracks" style="background-color: honeydew;" id="row-track_drums">
-			<div class="col-1 align-self-center" id="status_drums">
+		<div class="row border p-3 mt-2 row_tracks" style="background-color:honeydew;" id="row-track_guitar">
+			<div class="col-1 align-self-center" id="status_guitar">
 				<div class="spinner-border" role="status">
 					<span class="sr-only">Loading...</span>
 				</div>
 			</div>
 			<div class="col-2 align-self-center">
-				<b>Drums</b>
+				<b>Guitar</b>
 			</div>
 			<div class="col-2 align-self-center">
 				<em class="name_device">No device</em>
 			</div>
 			<div class="col-2 align-self-center">
-				<button type="button" id="button-record_drums" class="btn btn-outline-danger btn-block">Record</button>
+				<button type="button" id="button-record_guitar" class="btn btn-outline-danger btn-block">Record</button>
 			</div>
-			<div class="col-1 align-self-center text-center" id="record_status_drums">
+			<div class="col-1 align-self-center text-center" id="record_status_guitar">
 				<i class="fa fa-dot-circle-o fa-2x" style="color:grey"></i>
 			</div>
 			<div class="col-2 align-self-center">
-				<button type="button" id="button-play_drums" class="btn btn-outline-info btn-block">Solo</button>
+				<button type="button" id="button-play_guitar" class="btn btn-outline-info btn-block">Solo</button>
 			</div>
 			<div class="col-1 align-self-center text-center">
-				<input type="checkbox" no-checked data-toggle="toggle" data-on="<i class='fa fa-play'></i> Play" data-off="<i class='fa fa-stop'></i> Mute" data-onstyle="success" data-offstyle="danger" id="ensemble_drums">
+				<input type="checkbox" no-checked data-toggle="toggle" data-on="<i class='fa fa-play'></i> Play" data-off="<i class='fa fa-stop'></i> Mute" data-onstyle="success" data-offstyle="danger" id="ensemble_guitar">
 			</div>
 			<div class="col-3 align-self-center">
-				<div id="slider_drums"></div>
+				<div id="slider_guitar"></div>
 			</div>
 		</div>
+
+
+		<div class="row border p-3 mt-2 row_tracks" style="background-color:honeydew;" id="row-track_piano">
+			<div class="col-1 align-self-center" id="status_piano">
+				<div class="spinner-border" role="status">
+					<span class="sr-only">Loading...</span>
+				</div>
+			</div>
+			<div class="col-2 align-self-center">
+				<b>Piano</b>
+			</div>
+			<div class="col-2 align-self-center">
+				<em class="name_device">No device</em>
+			</div>
+			<div class="col-2 align-self-center">
+				<button type="button" id="button-record_piano" class="btn btn-outline-danger btn-block">Record</button>
+			</div>
+			<div class="col-1 align-self-center text-center" id="record_status_piano">
+				<i class="fa fa-dot-circle-o fa-2x" style="color:grey"></i>
+			</div>
+			<div class="col-2 align-self-center">
+				<button type="button" id="button-play_piano" class="btn btn-outline-info btn-block">Solo</button>
+			</div>
+			<div class="col-1 align-self-center text-center">
+				<input type="checkbox" no-checked data-toggle="toggle" data-on="<i class='fa fa-play'></i> Play" data-off="<i class='fa fa-stop'></i> Mute" data-onstyle="success" data-offstyle="danger" id="ensemble_piano">
+			</div>
+			<div class="col-3 align-self-center">
+				<div id="slider_piano"></div>
+			</div>
+		</div>
+
+		
+
+		
+
+		
 		
 	</div>
 

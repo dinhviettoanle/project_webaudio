@@ -8,6 +8,11 @@ let piano_track = null;
 let guitar_track = null;
 let bass_track = null;
 
+let piano_part = null;
+let guitar_part = null;
+let drums_part = null;
+let bass_part = null;
+
 let metro_click = null;
 
 let all_tracks = [];
@@ -57,6 +62,10 @@ window.addEventListener('load', function () {
         gain : 100,
     });
 
+    drums_part = drums_track.create_part();
+
+   
+
     // ================= INIT PIANO ==============
     let record_samples_piano = {};
     
@@ -74,6 +83,8 @@ window.addEventListener('load', function () {
         channel : 1,
         gain : 50,
     });
+
+    piano_part = piano_track.create_part();
 
     // ================== INIT GUITAR ==============
     let record_samples_guitar = {};
@@ -96,6 +107,7 @@ window.addEventListener('load', function () {
         gain : 100,
     });
     
+    guitar_part = guitar_track.create_part();
 
 
     // =================== INIT BASS ==================
@@ -118,6 +130,8 @@ window.addEventListener('load', function () {
         channel : 3,
         gain : 100,
     });
+
+    bass_part = bass_track.create_part();
 
     all_tracks = [drums_track, piano_track, guitar_track, bass_track];
 

@@ -112,34 +112,19 @@ function stop_other_recordings(current_track) {
     })
 }
 
+let nth_measure = 0;
+let nth_time = 1;
+let nth_loop = 0;
+
+function get_nth_measure(){
+    return nth_measure;
+}
+
+
+
 // =================== METRONOME =========================
 const gui_play_metro = document.querySelector('#button-play_metro');
 const track_metro = ["A3", "G3", "G3", "G3"];
-let nth_measure = 0;
-let nth_time = 1;
-
-function update_measure_box(nth_measure){
-    if(nth_measure < 1) {
-        $("#box_meas2").hide();
-    }
-    else {
-        $("#box_meas2").show();
-    }
-
-    if(nth_measure < 2) {
-        $("#box_meas3").hide();
-    }
-    else {
-        $("#box_meas3").show();
-    }
-
-    if(nth_measure < 3) {
-        $("#box_meas4").hide();
-    }
-    else {
-        $("#box_meas4").show();
-    }
-}
 
 const metro_loop = new Tone.Sequence(function(time, note) { 
     update_measure_box(nth_measure);
@@ -151,13 +136,34 @@ const metro_loop = new Tone.Sequence(function(time, note) {
 }, track_metro, "4n");
 
 
+
+
+
+
 gui_play_metro.addEventListener('click', () => {
     gui_play_metro.disabled = true;
     main_loop = new Tone.Loop(function(time) {
+        metro_loop.stop();
+        piano_part.stop();
+        guitar_part.stop();
+        bass_part.stop();
+        drums_part.stop();
+
         metro_loop.start();
-        
+        piano_part.start();
+        guitar_part.start();
+        bass_part.start();
+        drums_part.start();
+        nth_loop++;
     }, "4m");
 
-    main_loop.start()
+    main_loop.start();
     Tone.Transport.start();
 });
+
+function add_part_to_main(new_part) {
+    main_loop.callback = function(time) {
+        metro_loop.start();
+        new_part.start();
+    }
+}

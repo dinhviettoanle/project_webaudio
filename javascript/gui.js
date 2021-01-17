@@ -100,6 +100,28 @@ $(function() {
 });
 
 
+function update_measure_box(nth_measure){
+    if(nth_measure < 1) {
+        $("#box_meas2").hide();
+    }
+    else {
+        $("#box_meas2").show();
+    }
+
+    if(nth_measure < 2) {
+        $("#box_meas3").hide();
+    }
+    else {
+        $("#box_meas3").show();
+    }
+
+    if(nth_measure < 3) {
+        $("#box_meas4").hide();
+    }
+    else {
+        $("#box_meas4").show();
+    }
+}
 
 
 
