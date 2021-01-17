@@ -18,3 +18,8 @@ Se référer au button Help sur la page web pour la méthode pas à pas.
 - Le tempo / métronome n'est pas très stable et se décale pas mal avec le temps. L'utilisation directe du temps de Tone.js fait peut-être perdre en précision : peut-être implémenter une quantification de la durée (double-croche, triple-croche... mais pas entre les deux)
 - L'interface graphique est quand même assez laide...
 - Et tout ce qui est normalement possible sur une loop station : longueur de la loop, tempo, nombre de pistes, etc...
+
+## Source samples :
+- Batterie : http://juddmadden.com/drum-samples.html  
+- Basse : Steinberg Hypersonic 2  
+- Guitare / Piano : https://github.com/nbrosowsky/tonejs-instruments  
